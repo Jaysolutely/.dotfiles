@@ -10,7 +10,7 @@ if test -e $HOME/.nvm
 end
 
 if status is-interactive
-  if not test -n "$TMUX"
+  if test -z "$TMUX" -a -z "$(tmux lsc)"
     tmux new-session -A -s MAIN
   end
   fish_vi_key_bindings
