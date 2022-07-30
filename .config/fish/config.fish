@@ -11,7 +11,7 @@ end
 
 if status is-interactive
   if test -z "$TMUX" -a -z "$(tmux lsc)"
-    tmux new-session -A -s MAIN
+    tmux -f ~/.config/tmux/tmux.conf new-session -A -s MAIN
   end
   fish_vi_key_bindings
   set -g theme_display_date no
