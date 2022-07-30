@@ -1,6 +1,8 @@
 set -gx PATH /bin /usr/bin /usr/local/bin /usr/games /usr/sbin
 set -gx EDITOR /usr/bin/nvim
-set -gx TERM xterm-256color
+if test $TERM != "tmux-256color"
+  set -gx TERM xterm-256color
+end
 
 if test -e $HOME/.nvm
   set -gx NVM_DIR $HOME/.nvm
