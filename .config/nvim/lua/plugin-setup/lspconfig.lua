@@ -1,5 +1,5 @@
 local set = vim.keymap.set
-local buf = vim.ls.buf
+local buf = vim.lsp.buf
 local opts = { noremap = true, silent = true }
 set('n', '<space>e', vim.diagnostic.open_float, opts)
 set('n', '[d', vim.diagnostic.goto_prev, opts)
