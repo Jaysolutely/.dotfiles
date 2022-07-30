@@ -34,4 +34,8 @@ set.titlestring = "%t NVIM"
 
 -- autocomplete
 set.completeopt = { 'menu', 'menuone', 'noselect', 'noinsert' }
-set.formatoptions:remove { "c", "r", "o" } -- no automatic comment expansion
+local disableCommentContinuation = function() set.formatoptions:remove { 'c', 'r', 'o' } end
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+  callback = disableCommentContinuation
+})
+disableCommentContinuation()
