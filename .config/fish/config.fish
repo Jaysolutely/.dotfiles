@@ -4,6 +4,11 @@ if test $TERM != "tmux-256color"
   set -gx TERM xterm-256color
 end
 
+if test -e $HOME/.nvm
+  set -gx NVM_DIR $HOME/.nvm
+  bass source $NVM_DIR/nvm.sh
+end
+
 if status is-interactive
   if test -z "$TMUX" -a -z "$(tmux lsc)"
     tmux -f ~/.config/tmux/tmux.conf new-session -A -s MAIN
