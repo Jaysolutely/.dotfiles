@@ -1,12 +1,14 @@
 -- keybinds
 vim.g.mapleader = " "
 local map = vim.api.nvim_set_keymap
-
--- telescope keybinds
 local opt = {
   noremap = true,
   silent = true,
 }
+
+map("n", "<leader>r", ":so ~/.config/nvim/init.lua<CR>", {})
+
+-- telescope keybinds
 map("n", "<leader>ff", ":Telescope find_files<CR>", opt)
 map("n", "<leader>fg", ":Telescope live_grep<CR>", opt)
 map("n", "<leader>fb", ":Telescope buffers<CR>", opt)
