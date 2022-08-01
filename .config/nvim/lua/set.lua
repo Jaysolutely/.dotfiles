@@ -20,13 +20,18 @@ set.expandtab = true
 set.hlsearch = false
 set.scrolloff = 10
 set.signcolumn = "yes"
-set.colorcolumn = "80"
+set.colorcolumn = "81"
 set.cursorline = true
 set.background = "dark"
 set.splitbelow = true
 set.splitright = true
 set.wrap = false
 set.showmatch = true
+
+-- folding
+set.foldmethod = "indent"
+set.foldenable = false
+set.foldlevel = 99
 
 -- window
 set.title = true
