@@ -54,3 +54,6 @@ require 'lspconfig'.phpactor.setup {
 require 'lspconfig'.vimls.setup {
   on_attach = on_attach,
 }
+require 'lspconfig'.tsserver.setup {
+  on_attach = on_attach,
+}
