@@ -1,22 +1,28 @@
--- keybinds
 vim.g.mapleader = " "
-local map = vim.api.nvim_set_keymap
-local opt = {
-  noremap = true,
-  silent = true,
-}
 
-map("n", "<leader>r", ":so ~/.config/nvim/init.lua<CR>", {})
+local opts = { noremap = true, silent = true }
+local set = vim.keymap.set
 
--- telescope keybinds
-map("n", "<leader>ff", ":Telescope find_files<CR>", opt)
-map("n", "<leader>fg", ":Telescope live_grep<CR>", opt)
-map("n", "<leader>fb", ":Telescope buffers<CR>", opt)
-map("n", "<leader>tt", ":NvimTreeToggle<CR>", opt)
-map("n", "<leader>ee", "<Cmd>lua vim.lsp.buf.format {async = true}<CR>", opt)
+-- diagnostics
+local diagnostic = vim.diagnostic
+set('n', '<leader>ee', diagnostic.open_float, opts)
+set('n', '<leader>en', diagnostic.goto_prev, opts)
+set('n', '<leader>ep', diagnostic.goto_next, opts)
+set('n', '<leader>eq', diagnostic.setloclist, opts)
 
+-- telescope
+local telescope = require('telescope.builtin')
+set('n', '<leader>ff', telescope.find_files, opts)
+set('n', '<leader>fg', telescope.live_grep, opts)
+set('n', '<leader>fb', telescope.buffers, opts)
+
+-- nvim-tree
+local tree = require('nvim-tree.api').tree
+set('n', '<leader>tt', function() tree.toggle(true) end, opts)
+set('n', '<leader>tf', function() tree.find_file(vim.fn.expand('%')) end, opts)
+
+-- map key chord `jk` to <Esc>.
 vim.cmd [[
-" Map key chord `jk` to <Esc>.
 let g:esc_j_lasttime = 0
 let g:esc_k_lasttime = 0
 function! JKescape(key)
@@ -28,11 +34,3 @@ endfunction
 inoremap <expr> j JKescape('j')
 inoremap <expr> k JKescape('k')
 ]]
-
--- LSP setup
-local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-

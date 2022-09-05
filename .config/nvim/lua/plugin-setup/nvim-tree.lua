@@ -6,3 +6,4 @@ require("nvim-tree").setup({
     custom = { "^\\.git$" }
   }
 })
+vim.cmd([[:highlight NvimTreeNormal guibg=transparent]])
