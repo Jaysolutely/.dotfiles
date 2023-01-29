@@ -5,6 +5,7 @@
 xrandr -s "5120x1440_69.97"
 setxkbmap de
 #xrdb ~/.Xresources
+export SXHKD_SHELL=/bin/dash
 sxhkd &
 picom &
 polybar top &
