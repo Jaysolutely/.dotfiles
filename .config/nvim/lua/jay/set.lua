@@ -1,7 +1,6 @@
 local set = vim.opt
 
 -- general
-set.exrc = true
 set.mouse = "a"
 set.termguicolors = true
 set.ignorecase = true
@@ -10,14 +9,19 @@ set.shell = "/bin/bash"
 set.laststatus = 3
 set.clipboard = "unnamedplus"
 set.inccommand = "split"
+set.swapfile = false
+set.backup = false
 set.undofile = true
 
 -- editor
 set.number = true
 set.relativenumber = true
+
 set.shiftwidth = 2
 set.tabstop = 2
+set.softtabstop = 2
 set.expandtab = true
+
 set.hlsearch = false
 set.scrolloff = 10
 set.signcolumn = "yes"
