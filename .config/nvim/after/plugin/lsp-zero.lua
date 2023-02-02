@@ -24,23 +24,30 @@ lsp.ensure_installed({
 })
 
 local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-q>'] = cmp.mapping.close(),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ['<C-Space>'] = cmp.mapping.complete(),
-})
-
-cmp_mappings['<CR>'] = nil
-cmp_mappings['<Up>'] = nil
-cmp_mappings['<Right>'] = nil
-cmp_mappings['<Down>'] = nil
-cmp_mappings['<Right>'] = nil
-
 lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
+  mapping = cmp.mapping.preset.insert({
+    ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<C-q>'] = cmp.mapping.abort(),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-Space>'] = cmp.mapping.complete({}),
+    ['<Up>'] = nil,
+    ['<Down>'] = nil,
+  }),
+  formatting = {
+    fields = { 'menu', 'abbr', 'kind' },
+    format = function(entry, item)
+      local menu_icon = {
+        nvim_lsp = 'λ',
+        luasnip = '⋗',
+        buffer = 'Ω',
+        path = '🖫',
+        nvim_lua = 'Π',
+      }
+      item.menu = menu_icon[entry.source.name]
+      return item
+    end,
+  },
 })
 
 local disable_formatting_for_lsp = { "html", "tsserver" }
@@ -61,9 +68,9 @@ lsp.on_attach(function(client, bufnr)
   set('n', 'K', function() vim.lsp.buf.hover() end, opts)
   set('n', '<leader>ee', function() vim.diagnostic.open_float() end, opts)
   set('n', '<leader>en', function() vim.diagnostic.goto_next() end, opts)
-  set('n', '<leader>ep', function() vim.diagnostic.goto_prev() end, opts)
+  set('n', '<leader>ep', function() vim.diagnostic.goto_prev({}) end, opts)
   set('n', '<leader>ca', function() vim.lsp.buf.code_action() end, opts)
-  set('n', '<leader>rf', function() vim.lsp.buf.references() end, opts)
+  set('n', '<leader>rf', function() vim.lsp.buf.references({}) end, opts)
   set('n', '<leader>rn', function() vim.lsp.buf.rename() end, opts)
   set('n', '<leader>fx', function() vim.lsp.buf.format({ async = true }) end, opts)
 end)
@@ -98,4 +105,4 @@ require('mason-null-ls').setup({
 })
 
 -- Required when `automatic_setup` is true
-require('mason-null-ls').setup_handlers()
+require('mason-null-ls').setup_handlers({})
